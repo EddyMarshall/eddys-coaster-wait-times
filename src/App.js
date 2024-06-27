@@ -14,7 +14,11 @@ function App() {
 
         const formattedCoasters = jsonRes && jsonRes.lands && jsonRes.lands.map(land => {
           return land.rides
-        }).flat()
+        }).flat().sort(function (a, b) {
+          if (a.name > b.name) return 1;
+          if (b.name > a.name) return -1;
+          return 0;
+        })
 
         setCoasters(formattedCoasters)
       } catch (err) {
