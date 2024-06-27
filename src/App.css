@@ -43,5 +43,7 @@ html, body {
 
 .cardContent {
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
 }
 

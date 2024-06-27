@@ -55,7 +55,12 @@ function CoasterCard({content}) {
   return (
     <Card className='card' type='inner' title={title} onClick={() => setExpanded(!expanded)}>
       <div className='cardContent'>
-        {`Wait Time: ${content.wait_time} minutes`}
+        <div>
+          {`Status: ${content.is_open === true ? 'open!' : 'closed :('} `}
+        </div>
+        <div>
+          {content.is_open === true && `Wait Time: ${content.wait_time} minutes`}
+        </div>
       </div>
     </Card>
   )
