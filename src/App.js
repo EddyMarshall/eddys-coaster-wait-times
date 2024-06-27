@@ -28,7 +28,7 @@ function App() {
   return (
     <div className='appBody'>
       <h1 className='header'>Eddy's Coaster Wait Times!</h1>
-      <Input className='searchBar' onChange={e => setSearchParams(e.target.value)} size="large" placeholder="Search!" />
+      <Input className='searchBar' onChange={e => setSearchParams(e.target.value.toLowerCase())} size="large" placeholder="Search!" />
       {coasters.filter(coaster => coaster.name.toLowerCase().includes(searchParams)).map((coaster, i) => {
         return (
           <div key={i}>
