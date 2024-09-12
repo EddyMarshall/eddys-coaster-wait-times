@@ -1,0 +1,62 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: black;
+}  
+
+.appBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background: black;
+}
+
+.header {
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  text-decoration: underline;
+  position: sticky;
+  top: 0px;
+  background-color: black;
+  z-index: 1;
+  padding: 20px 0;
+}
+
+.back-button {
+  text-align: left;
+  font-size: 30px;
+  margin-bottom: 40px;
+  text-decoration: none;
+  width: 100%;
+}
+
+.searchBar {
+  margin: 10px 0;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.card {
+  margin: 20px;
+  font-weight: 600;
+  border: 1px solid grey;
+  box-shadow: 10px 5px 5px grey;
+  max-width: 290px;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 20px;
+  overflow-x: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+
+.cardContent {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
