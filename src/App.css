@@ -8,7 +8,6 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px;
   background: black;
 }
 
@@ -22,6 +21,7 @@ html, body {
   background-color: black;
   z-index: 1;
   padding: 20px 0;
+  width: 100%;
 }
 
 .back-button {
