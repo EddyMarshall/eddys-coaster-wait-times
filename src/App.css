@@ -43,7 +43,6 @@ html, body {
   margin: 20px;
   font-weight: 600;
   border: 1px solid grey;
-  box-shadow: 10px 5px 5px grey;
   max-width: 290px;
   width: 100%;
 }
