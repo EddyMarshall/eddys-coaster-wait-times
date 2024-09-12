@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/eddys-coaster-wait-times/static/css/main.bc75ef48.css",
+    "main.css": "/eddys-coaster-wait-times/static/css/main.3bdc842d.css",
     "main.js": "/eddys-coaster-wait-times/static/js/main.f079e2b8.js",
     "index.html": "/eddys-coaster-wait-times/index.html",
-    "main.bc75ef48.css.map": "/eddys-coaster-wait-times/static/css/main.bc75ef48.css.map",
+    "main.3bdc842d.css.map": "/eddys-coaster-wait-times/static/css/main.3bdc842d.css.map",
     "main.f079e2b8.js.map": "/eddys-coaster-wait-times/static/js/main.f079e2b8.js.map"
   },
   "entrypoints": [
-    "static/css/main.bc75ef48.css",
+    "static/css/main.3bdc842d.css",
     "static/js/main.f079e2b8.js"
   ]
 }
