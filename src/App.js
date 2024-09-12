@@ -1,37 +1,83 @@
 import './App.css'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Spin, Card, Input } from "antd";
 
+const allParks = [
+  { name: 'Animal Kingdom', id: '8' },
+  { name: 'Disney Hollywood Studios', id: '7' },
+  { name: 'Disney Magic Kingdom', id: '6' },
+  { name: 'Disneyland', id: '16' },
+  { name: 'Epcot', id: '5' },
+  { name: 'Islands Of Adventure At Universal Orlando', id: '64' },
+  { name: 'Universal Studios At Universal Orlando', id: '65' },
+]
+
 function App() {
+  const [currentView, setCurrentView] = useState('all-parks-index-view');
+  const [currentPark, setCurrentPark] = useState(null);
   const [coasters, setCoasters] = useState(null)
+
+  async function handleSelectPark(park) {
+    setCurrentView('park-view');
+    setCurrentPark(park);
+
+    try {
+      const rawRes = await fetchCoasters(park.id);
+      const jsonRes = await rawRes.json();
+
+      const formattedCoasters = jsonRes && jsonRes.lands && jsonRes.lands.map(land => {
+        return land.rides
+      }).flat().sort(function (a, b) {
+        if (a.name > b.name) return 1;
+        if (b.name > a.name) return -1;
+        return 0;
+      })
+
+      setCoasters(formattedCoasters)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function handleBackClick() {
+    setCurrentView('all-parks-index-view')
+    setCurrentPark(null);
+    setCoasters(null)
+  }
+
+  return (
+    <div className='appBody'>
+      {currentView === 'all-parks-index-view' && <h1 className='header' >Eddy's Ride Wait Times!</h1>}
+      {currentView === 'all-parks-index-view' && <AllParksView onSelect={handleSelectPark} />}
+      {currentView === 'park-view' && <ParkView coasters={coasters} park={currentPark} onBackClick={handleBackClick}/>}
+    </div>
+  );
+}
+
+function AllParksView({ onSelect }) {
+  return (
+    <div>
+      {allParks.map((park, index) => {
+        return (
+          <Card key={`${park.id}-${index}`} className='card' type='inner' title={park.name} onClick={() => onSelect(park)}/>
+        )
+      })}
+    </div>
+  )
+}
+
+
+function ParkView({ park, coasters, onBackClick }) {
   const [searchParams, setSearchParams] = useState('')
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const rawRes = await fetchCoasters();
-        const jsonRes = await rawRes.json();
-
-        const formattedCoasters = jsonRes && jsonRes.lands && jsonRes.lands.map(land => {
-          return land.rides
-        }).flat().sort(function (a, b) {
-          if (a.name > b.name) return 1;
-          if (b.name > a.name) return -1;
-          return 0;
-        })
-
-        setCoasters(formattedCoasters)
-      } catch (err) {
-        console.log(err);
-      }
-    })()
-  }, []);
 
   if (!coasters) return <Spin fullscreen={true}/>
 
   return (
-    <div className='appBody'>
-      <h1 className='header'>Eddy's Coaster Wait Times!</h1>
+    <div>
+      <h2 className='header'>
+        <div onClick={onBackClick} className='back-button'>back</div>
+        {park.name}
+      </h2>
       <Input className='searchBar' onChange={e => setSearchParams(e.target.value.toLowerCase())} size="large" placeholder="Search!" />
       {coasters.filter(coaster => coaster.name.toLowerCase().includes(searchParams)).map((coaster, i) => {
         return (
@@ -41,7 +87,7 @@ function App() {
         )
       })}
     </div>
-  );
+  )
 }
 
 function CoasterCard({content}) {
@@ -70,9 +116,11 @@ function CoasterCard({content}) {
   )
 }
 
-async function fetchCoasters() {
+
+
+async function fetchCoasters(id) {
   return await fetch(
-    "https://hidden-ravine-39907-0113fb68692a.herokuapp.com/https://queue-times.com/parks/15/queue_times.json",
+    `https://nameless-gorge-76050-68e1f4153119.herokuapp.com/https://queue-times.com/parks/${id}/queue_times.json`,
     { 
       'Accept': 'application/json',
       'Content-Type': 'application/json'
