@@ -46,7 +46,7 @@ function App() {
   }
 
   return (
-    <div className='appBody'>
+    <div>
       {currentView === 'all-parks-index-view' && <h1 className='header' >Eddy's Ride Wait Times!</h1>}
       {currentView === 'all-parks-index-view' && <AllParksView onSelect={handleSelectPark} />}
       {currentView === 'park-view' && <ParkView coasters={coasters} park={currentPark} onBackClick={handleBackClick}/>}
@@ -56,7 +56,7 @@ function App() {
 
 function AllParksView({ onSelect }) {
   return (
-    <div>
+    <div className='appBody'>
       {allParks.map((park, index) => {
         return (
           <Card key={`${park.id}-${index}`} className='card' type='inner' title={park.name} onClick={() => onSelect(park)}/>
@@ -73,7 +73,7 @@ function ParkView({ park, coasters, onBackClick }) {
   if (!coasters) return <Spin fullscreen={true}/>
 
   return (
-    <div>
+    <div className='appBody'>
       <h2 className='header'>
         <div onClick={onBackClick} className='back-button'>back</div>
         {park.name}
@@ -81,9 +81,7 @@ function ParkView({ park, coasters, onBackClick }) {
       <Input className='searchBar' onChange={e => setSearchParams(e.target.value.toLowerCase())} size="large" placeholder="Search!" />
       {coasters.filter(coaster => coaster.name.toLowerCase().includes(searchParams)).map((coaster, i) => {
         return (
-          <div key={i}>
-            <CoasterCard className='cardContainer' content={coaster} />
-          </div>
+          <CoasterCard key={i} className='cardContainer' content={coaster} />
         )
       })}
     </div>
